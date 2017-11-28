@@ -1,0 +1,12 @@
+/**
+ * Scss entry
+ */
+@import "fonts.scss";
+
+// Import pages
+@import "home.scss";
+
+// Root styles
+body {
+  font-family: 'Raleway', sans-serif;
+}

@@ -10,21 +10,22 @@ const rawLoaders = {
   json: { test: /\.json$/, exclude: /node_modules/, loaders: [ "json-loader" ] },
   jsx: { test: /\.jsx$/, exclude: /node_modules/, loaders: [ "babel-loader" ] },
   js: { test: /\.js$/, exclude: /node_modules/, loaders: [ "babel-loader" ] },
-  scss: { test: /\.scss$/, exclude: /node_modules/, loaders: ["style", "css", "sass"] },
+  scss: { test: /\.scss$/, exclude: /node_modules/, loaders: ["style-loader", "css-loader", "sass-loader"] },
+  css: { test: /\.css$/, loaders: ["style-loader", "css-loader"] },
   img: {
     test: /\.(jpe?g|png|gif|svg)$/i,
     loaders: [
-      "file?hash=sha512&digest=hex&name=[hash].[ext]",
-      "image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false"
+      "file-loader?hash=sha512&digest=hex&name=[hash].[ext]",
+      "image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false"
     ]
   },
   font: {
     test: /\.(ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    loaders: [ "file?hash=sha512&digest=hex&name=./fonts/[hash].[ext]" ]
+    loaders: [ "file-loader?hash=sha512&digest=hex&name=./fonts/[hash].[ext]" ]
   },
   font2: {
     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    loader: "url?limit=50000&mimetype=application/font-woff&name=./fonts/[hash].[ext]"
+    loader: "url-loader?limit=50000&mimetype=application/font-woff&name=./fonts/[hash].[ext]"
   }
 };
 

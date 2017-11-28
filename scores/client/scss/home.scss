@@ -1,0 +1,17 @@
+// Home css
+@import "colours";
+
+.home-head {
+  text-align: center;
+}
+
+.home-buttons {
+  text-align: center;
+  button {
+    display: inline-block;
+    margin-right: 10px;
+    a {
+      color: $white !important;
+    }
+  }
+}

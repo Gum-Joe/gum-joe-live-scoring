@@ -2,14 +2,27 @@
  * @overview Index of react
  */
 import "bootstrap/dist/js/bootstrap.min";
+import "bootstrap/dist/css/bootstrap.css";
 import React, { Component } from "react";
 import ReactDom from "react-dom";
+import { AppContainer } from "react-hot-loader";
+import App from "./components/router";
 
-class Scores extends Component {
-  render() {
-    return (
-      <h1>MyComponent</h1>
-    );
-  }
+const render = Component => {
+  ReactDom.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    document.getElementById("root")
+  );
+};
+
+// Start
+render(App);
+
+// Webpack Hot Module Replacement API
+if (module.hot) {
+  module.hot.accept("./components/router.jsx", () => {
+    render(require("./components/router").default);
+  });
 }
-ReactDom.render(<Scores />, document.getElementById("root"));
