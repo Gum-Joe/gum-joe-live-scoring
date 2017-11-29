@@ -5,8 +5,14 @@
 
 // Import pages
 @import "home.scss";
+@import "scores.scss";
 
 // Root styles
 body {
   font-family: 'Raleway', sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
 }

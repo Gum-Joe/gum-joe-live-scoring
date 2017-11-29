@@ -18,4 +18,5 @@ module.exports = {
     ),
     { flags: "a" }
   )} : {},
+  SCORES: path.join(__dirname, "..", "data", "scores.json")
 };

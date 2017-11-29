@@ -3,9 +3,11 @@
  */
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Home from "./home"
-import Scores from "./scores";
+import { Provider } from "react-redux";
+import Home from "./home";
+import Scores from "../containers/scores";
 import ScoresAdmin from "./admin";
+import store from "../reducers";
 
 // Styles
 import "../scss/index.scss";
@@ -19,13 +21,15 @@ import "../scss/index.scss";
 export default class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route path="/scores" component={Scores} />
-          <Route path="/setscores" component={ScoresAdmin} />
-        </Switch>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/scores" component={Scores} />
+            <Route path="/setscores" component={ScoresAdmin} />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

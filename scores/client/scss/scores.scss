@@ -1,0 +1,45 @@
+/**
+ * Scores css
+ */
+@import "colours.scss";
+
+.scores-back {
+  background-color: $black;
+  height: 100%;
+  width: 100%;
+  color: $white;
+  text-align: center;
+  .scores-name {
+    font-size: 60px;
+  }
+  .scores-score {
+    font-size: 120px;
+    font-family: "Digital Dream Fat", sans-serif;
+  }
+  .container {
+    margin: 0;
+    width: 100%;
+    .row {
+      margin-top: 50px;
+      div {
+      //margin-left: 75px;
+      }
+    }
+  }
+
+  .scores-0 {
+    color: #ff8a80;
+  }
+
+  .scores-1 {
+    color: #4FC3F7;
+  }
+
+  .scores-2 {
+    color: #FFFF8D;
+  }
+
+  .scores-3 {
+    color: #69F0AE;
+  }
+}
