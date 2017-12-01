@@ -5,6 +5,8 @@
 import React, { Component } from "react";
 import { Col, Grid,  Row } from "react-bootstrap";
 import ajax from "es-ajax";
+import io from "socket.io-client";
+const socket = io();
 
 export default class Scores extends Component {
   componentDidMount() {
@@ -19,6 +21,8 @@ export default class Scores extends Component {
       .catch(err => {
         throw err;
       });
+    // Socket.io
+    socket.on("update-scores", scores => this.props.dispatch({ type: "INJECT", scores: scores.scores }));
   }
 
   render() {
