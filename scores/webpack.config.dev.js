@@ -44,6 +44,8 @@ const config = {
   // Entry file
   entry: [
     "babel-polyfill",
+    "webpack-hot-middleware/client",
+    "react-hot-loader/patch",
     "./client/index.jsx"
   ],
   // Resolve
@@ -61,12 +63,9 @@ const config = {
   module: {
     rules: loadersToArray(rawLoaders)
   },
-
-  // Get prod ready
+  // Plugins
   plugins: [
-    new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("production")
-    })
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
 

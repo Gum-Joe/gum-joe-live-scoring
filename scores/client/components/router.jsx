@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import Home from "./home";
 import Scores from "../containers/scores";
-import ScoresAdmin from "./admin";
+import ScoresAdmin from "../containers/admin";
 import store from "../reducers";
 
 // Styles
@@ -26,7 +26,7 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" component={Home}/>
             <Route path="/scores" component={Scores} />
-            <Route path="/setscores" component={ScoresAdmin} />
+            <Route path="/edit" component={ScoresAdmin} />
           </Switch>
         </BrowserRouter>
       </Provider>

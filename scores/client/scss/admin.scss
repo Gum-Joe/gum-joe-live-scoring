@@ -1,0 +1,99 @@
+/** CSS for edit area, originally from @Jamesneakz (Twitter) */
+@import "colours.scss";
+
+.gridcontainer{
+	display: inline-grid;
+	grid-template-columns: repeat(4,1fr);
+	grid-template-rows: repeat(14,1fr);
+	width: 100%;
+	height: 100%;
+}
+
+.gridcontainer div{
+	display: grid;
+	grid-template-columns: repeat(2,1fr);
+	grid-template-rows: repeat(10,1fr);
+	grid-gap: 0;
+	background-color: #1f1f1f;
+}
+
+.gridcontainer * .score{
+	grid-column-start: 1;
+	grid-column-end: 3;
+	display: block;
+	background-color: #1f1f1f;
+	text-align: center;
+	grid-row-start: 4;
+	/*grid-row-end: 9;*/
+	font-family: "Digital dream";
+	color: #20c20e;
+	text-shadow: 0 0 10px #20c20e;
+}
+
+.name{
+	grid-row-start: 2;
+	grid-row-end: 4;
+	grid-column-start: 1;
+	grid-column-end: 3;
+	background-color: magenta;
+	font-family: "Raleway";
+	background-color: #1f1f1f;
+	text-align: center;
+	display: block!important;
+  color: #fff;
+}
+
+.gridcontainer * .score, .name {
+  font-size: 60px;
+}
+
+.minusone{
+	grid-row-start: 6;
+	grid-column-start: 1;
+	background-color: #c20e20!important;
+	text-align: right;
+}
+
+.plusone{
+	grid-row-start: 6;
+	grid-column-start: 2;
+	background-color: #20c20e!important;
+}
+
+.plusone, .minusone {
+  font-size: 50px;
+  color: #fff;
+  text-align: center;
+}
+
+.one{
+	grid-column-start: 1;
+	grid-column-end: 2;
+	grid-row-start: 1;
+	grid-row-end: 11;
+}
+
+.two{
+	grid-column-start: 2;
+	grid-column-end: 3;
+	grid-row-start: 1;
+	grid-row-end: 11;
+}
+
+.three{
+	grid-column-start: 3;
+	grid-column-end: 4;
+	grid-row-start: 1;
+	grid-row-end: 11;
+}
+
+.four{
+	grid-column-start: 4;
+	grid-column-end: 5;
+	grid-row-start: 1;
+	grid-row-end: 11;
+}
+
+html{
+	background-color: #1f1f1f;
+}

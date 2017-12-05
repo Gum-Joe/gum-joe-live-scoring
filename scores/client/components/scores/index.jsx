@@ -10,23 +10,25 @@ const socket = io();
 
 export default class Scores extends Component {
   componentDidMount() {
-    ajax("/api/get/scores")
-      .get()
-      .then(res => {
-        this.props.dispatch({
-          type: "INJECT",
-          scores: JSON.parse(res.response).scores
+    // Socket.io should be used, but this works better
+    setInterval(() => {
+      ajax("/api/get/scores")
+        .get()
+        .then(res => {
+          this.props.dispatch({
+            type: "INJECT",
+            scores: JSON.parse(res.response).scores
+          });
+        })
+        .catch(err => {
+          throw err;
         });
-      })
-      .catch(err => {
-        throw err;
-      });
+    }, 250);
     // Socket.io
-    socket.on("update-scores", scores => this.props.dispatch({ type: "INJECT", scores: scores.scores }));
+    //socket.on("update-scores", scores => this.props.dispatch({ type: "INJECT", scores: scores.scores }));
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="scores-back">
         <Grid>

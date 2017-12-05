@@ -10,7 +10,7 @@ const morgan = require("morgan");
 const path = require("path");
 const webpack = require("webpack");
 const constants = require("../utils/constants");
-const webpackConfig = require("../webpack.config");
+const webpackConfig = require("../webpack.config.dev");
 
 /**
  * Function to add middleware to express server
@@ -29,10 +29,14 @@ module.exports = (app) => {
   app.use(favicon(path.join(__dirname, "..", "favicon.jpg"))); // Favicon
 
   // Hot reload
-  const compiler = webpack(webpackConfig);
-  app.use(require("webpack-dev-middleware")(compiler, {
-    noInfo: true,
-    publicPath: webpackConfig.output.publicPath
-  }));
-  app.use(require("webpack-hot-middleware")(compiler));
+  if (process.env.NODE_ENV !== "production") {
+    const compiler = webpack(webpackConfig);
+    app.use(require("webpack-dev-middleware")(compiler, {
+      noInfo: true,
+      publicPath: webpackConfig.output.publicPath
+    }));
+    app.use(require("webpack-hot-middleware")(compiler));
+  } else {
+    app.use(express.static(path.join(__dirname, "..", "build")));
+  }
 };
