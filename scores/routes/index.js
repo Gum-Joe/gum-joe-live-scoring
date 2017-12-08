@@ -13,6 +13,10 @@ router.get("/", (req, res) => {
   res.render("index.ejs");
 });
 
+router.get("/edit", (req, res) => {
+  res.render("index.ejs");
+});
+
 router.get("/api/get/scores", (req, res, next) => {
   read(SCORES)
     .then((result) => {

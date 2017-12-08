@@ -56,7 +56,7 @@ export default function reducer(state = defaultState, action) {
     // Emit update
     socket.emit("change-score", {
       id: action.id,
-      score: newScores[action.id],
+      score: action.score,
     });
     // Return
     return {

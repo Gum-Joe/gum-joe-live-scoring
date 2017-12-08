@@ -39,7 +39,7 @@
 	font-family: "Raleway";
 	background-color: #1f1f1f;
 	text-align: center;
-	display: block!important;
+	display: block !important;
   color: #fff;
 }
 
@@ -50,14 +50,14 @@
 .minusone{
 	grid-row-start: 6;
 	grid-column-start: 1;
-	background-color: #c20e20!important;
+	background-color: $red !important;
 	text-align: right;
 }
 
 .plusone{
 	grid-row-start: 6;
 	grid-column-start: 2;
-	background-color: #20c20e!important;
+	background-color: $green !important;
 }
 
 .plusone, .minusone {
@@ -92,6 +92,16 @@
 	grid-column-end: 5;
 	grid-row-start: 1;
 	grid-row-end: 11;
+}
+
+form {
+	grid-row-start: 7;
+	grid-column-start: 1;
+	grid-column-end: 3;
+	padding: 10px;
+	.form-group {
+		display: block !important;
+	}
 }
 
 html{

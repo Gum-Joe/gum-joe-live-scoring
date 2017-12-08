@@ -25,6 +25,7 @@ function addSIO(server) {
   io.on("connection", (socket) => {
     console.log("[SOCKET] A user connected");
 
+    // Boot INIT
     read(SCORES)
       .then(data => socket.emit("update-scores", JSON.parse(data)))
       .catch(err => {  throw err; });

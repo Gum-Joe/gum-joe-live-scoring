@@ -15,6 +15,7 @@ export const deincrement = (id, score) => {
 };
 
 export const set = (id, score) => {
+  console.log(score);
   return {
     type: SET,
     id,
