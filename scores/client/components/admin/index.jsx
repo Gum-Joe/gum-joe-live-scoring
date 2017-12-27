@@ -53,8 +53,14 @@ export default class ScoresAdmin extends Component {
             <div className={numberword[score.id]}>
               <div className="name" id={`player${score.id}name`}>{score.name}</div>
               <div className="score" id={`player${score.id}score`}>{score.score}</div>
-              <button className="minusone" onClick={() => this.props.dispatch(deincrement(score.id))} id={`player${score.id}minus1`}>-</button>
-              <button className="plusone" onClick={() => this.props.dispatch(increment(score.id))} id={`player${score.id}plus1`}>+</button>
+              <button className="scorechange minusone" onClick={() => this.props.dispatch(deincrement(score.id))} id={`player${score.id}minus1`}>-</button>
+              <button className="scorechange minus400" onClick={() => this.props.dispatch(set(score.id, parseInt(score.score) - 400))} id={`player${score.id}plus1`}>-400 (B)</button>
+              <button className="scorechange minus800" onClick={() => this.props.dispatch(set(score.id, parseInt(score.score) - 800))} id={`player${score.id}plus1`}>-800 (R1)</button>
+              <button className="scorechange minus900" onClick={() => this.props.dispatch(set(score.id, parseInt(score.score) - 900))} id={`player${score.id}plus1`}>-900 (R2)</button>
+              <button className="scorechange plusone" onClick={() => this.props.dispatch(increment(score.id))} id={`player${score.id}plus1`}>+</button>
+              <button className="scorechange plus400" onClick={() => this.props.dispatch(set(score.id, parseInt(score.score) + 400))} id={`player${score.id}plus1`}>+400 (B)</button>
+              <button className="scorechange plus800" onClick={() => this.props.dispatch(set(score.id, parseInt(score.score) + 800))} id={`player${score.id}plus1`}>+800 (R1)</button>
+              <button className="scorechange plus900" onClick={() => this.props.dispatch(set(score.id, parseInt(score.score) + 900))} id={`player${score.id}plus1`}>+900 (R2)</button>
               <form>
                 <FormGroup validationState={this.state.valid}>
                   <InputGroup>

@@ -60,7 +60,43 @@
 	background-color: $green !important;
 }
 
-.plusone, .minusone {
+.plus400 {
+	grid-row-start: 7;
+	grid-column-start: 2;
+	background-color: #448AFF !important;
+}
+
+.minus400 {
+	grid-row-start: 7;
+	grid-column-start: 1;
+	background-color: #7C4DFF !important;
+}
+
+.plus800 {
+	grid-row-start: 8;
+	grid-column-start: 2;
+	background-color: #795548 !important;
+}
+
+.minus800 {
+	grid-row-start: 8;
+	grid-column-start: 1;
+	background-color: #FF5722 !important;
+}
+
+.plus900 {
+	grid-row-start: 9;
+	grid-column-start: 2;
+	background-color: #8BC34A !important;
+}
+
+.minus900 {
+	grid-row-start: 9;
+	grid-column-start: 1;
+	background-color: #E91E63 !important;
+}
+
+.scorechange {
   font-size: 50px;
   color: #fff;
   text-align: center;
@@ -95,7 +131,7 @@
 }
 
 form {
-	grid-row-start: 7;
+	grid-row-start: 10;
 	grid-column-start: 1;
 	grid-column-end: 3;
 	padding: 10px;
