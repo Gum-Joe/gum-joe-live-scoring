@@ -3,6 +3,7 @@
  */
 const { Router } = require("express");
 const fs = require("fs");
+const robot = require("robotjs");
 const { promisify } = require("util");
 const router = new Router();
 const { SCORES } = require("../utils/constants");
@@ -27,6 +28,22 @@ router.get("/api/get/scores", (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+});
+
+/**
+ * Route to handle buzzers
+ * make sure pi/switcher.ahk is running
+ */
+router.get("/api/get/buzz/:contestant", (req, res, next) => {
+  const { scores } = require(SCORES);
+  if (typeof scores[req.params.contestant] === "undefined") {
+    res.statusCode = 404;
+    res.send("ERROR: Invalid Contestant");
+  } else {
+    robot.keyTap(scores[req.params.contestant].hotkey);
+    res.statusCode = 200;
+    res.send("OK");
+  }
 });
 
 module.exports = router;

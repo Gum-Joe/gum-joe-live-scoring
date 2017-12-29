@@ -3,22 +3,26 @@
   {
    "name": "GrandMF",
    "score": "0",
-   "id": 0
+   "id": 0,
+   "hotkey": "f21"
   },
   {
    "name": "BeardoiusMaximus",
    "score": 0,
-   "id": 1
+   "id": 1,
+   "hotkey": "f22"
   },
   {
    "name": "Lukas",
    "score": "0",
-   "id": 2
+   "id": 2,
+   "hotkey": "f23"
   },
   {
    "name": "KingM",
    "score": "0",
-   "id": 3
+   "id": 3,
+    "hotkey": "f24"
   }
  ]
 }
