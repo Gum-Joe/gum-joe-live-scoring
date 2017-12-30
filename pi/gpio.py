@@ -9,7 +9,7 @@ pins = [ # Pins in order of contestant ID
 	22,
 	26
 ]
-ADDRESS = "192.168.0.15:3030" # Address to send who buzzed to
+ADDRESS = "http://192.168.0.15:3030" # Address to send who buzzed to
 ROUTE = "/api/get/buzz" # Route on the server
 SENDTO = ADDRESS + ROUTE
 SLEEPTIME = 2 # secs
@@ -23,7 +23,7 @@ GPIO.setup(pins[3], GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # C4
 # Program to send whio
 def send(id):
 	print("[DEBUG] Sending buzz request for contestant with ID " + str(id))
-	r = requests.post(SENDTO + "/" + str(id))
+	r = requests.get(SENDTO + "/" + str(id))
 	print("[DEBUG] " + str(r.status_code) + str(r.reason))
 	
 while True:
