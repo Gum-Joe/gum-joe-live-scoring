@@ -9,7 +9,7 @@ pins = [ # Pins in order of contestant ID
 	22,
 	26
 ]
-ADDRESS = "http://192.168.0.15:3030" # Address to send who buzzed to
+ADDRESS = "https://9e7f2197.ngrok.io" # Address to send who buzzed to
 ROUTE = "/api/get/buzz" # Route on the server
 SENDTO = ADDRESS + ROUTE
 SLEEPTIME = 2 # secs
