@@ -8,6 +8,7 @@ const { promisify } = require("util");
 const router = new Router();
 const { SCORES } = require("../utils/constants");
 
+let last = ""
 const read = promisify(fs.readFile);
 
 router.get("/", (req, res) => {
@@ -40,10 +41,17 @@ router.get("/api/get/buzz/:contestant", (req, res, next) => {
     res.statusCode = 404;
     res.send("ERROR: Invalid Contestant");
   } else {
+    last = scores[req.params.contestant].name;
     robot.keyTap(scores[req.params.contestant].hotkey);
     res.statusCode = 200;
     res.send("OK");
   }
 });
+
+// Send last scored
+router.get("/api/get/last", (req, res, next) => {
+  res.statusCode = 200
+  res.send(last)
+})
 
 module.exports = router;

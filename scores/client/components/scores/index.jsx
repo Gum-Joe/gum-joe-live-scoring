@@ -8,6 +8,8 @@ import ajax from "es-ajax";
 import io from "socket.io-client";
 const socket = io();
 
+let lastBuzz = "";
+
 export default class Scores extends Component {
   componentDidMount() {
     // Socket.io should be used, but this works better
@@ -19,6 +21,15 @@ export default class Scores extends Component {
             type: "INJECT",
             scores: JSON.parse(res.response).scores
           });
+        })
+        .catch(err => {
+          throw err;
+        });
+
+      ajax("/api/get/last")
+        .get()
+        .then(res => {
+          lastBuzz = res.response;
         })
         .catch(err => {
           throw err;
@@ -79,6 +90,9 @@ export default class Scores extends Component {
                 1000
               </p>
             </Col> */}
+          </Row>
+          <Row>
+            <h2>Last Buzz: {lastBuzz}</h2>
           </Row>
         </Grid>
       </div>
