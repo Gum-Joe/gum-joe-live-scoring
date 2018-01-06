@@ -2,6 +2,7 @@
 import RPi.GPIO as GPIO
 import requests # pip install requests
 from time import sleep
+import pygame
 
 pins = [ # Pins in order of contestant ID
 	16,
@@ -9,6 +10,14 @@ pins = [ # Pins in order of contestant ID
 	22,
 	26
 ]
+music = [
+	"GrandM",
+	"Beardoius",
+	"Lukas",
+	"Sam"
+]
+MUSIC_ROOT = "./SFX/"
+MUSIC_FILE = ".mp3"
 ADDRESS = "https://9e7f2197.ngrok.io" # Address to send who buzzed to
 ROUTE = "/api/get/buzz" # Route on the server
 SENDTO = ADDRESS + ROUTE
@@ -20,9 +29,15 @@ GPIO.setup(pins[1], GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # C2
 GPIO.setup(pins[2], GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # C3
 GPIO.setup(pins[3], GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # C4
 
+# Function to play contestant sound
+def play(id):
+	pygame.mixer.music.load("myFile.wav")
+	pygame.mixer.music.play(MUSIC_ROOT + music[id] + MUSIC_FILE)
+
 # Program to send whio
 def send(id):
 	print("[DEBUG] Sending buzz request for contestant with ID " + str(id))
+	play(id)
 	r = requests.get(SENDTO + "/" + str(id))
 	print("[DEBUG] " + str(r.status_code) + str(r.reason))
 	
