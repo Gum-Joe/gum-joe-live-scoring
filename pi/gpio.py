@@ -28,11 +28,12 @@ GPIO.setup(pins[0], GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # C1
 GPIO.setup(pins[1], GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # C2
 GPIO.setup(pins[2], GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # C3
 GPIO.setup(pins[3], GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # C4
+pygame.mixer.init()
 
 # Function to play contestant sound
 def play(id):
-	pygame.mixer.music.load("myFile.wav")
-	pygame.mixer.music.play(MUSIC_ROOT + music[id] + MUSIC_FILE)
+	pygame.mixer.music.load(MUSIC_ROOT + music[id] + MUSIC_FILE)
+	pygame.mixer.music.play()
 
 # Program to send whio
 def send(id):
