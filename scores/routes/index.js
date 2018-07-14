@@ -3,10 +3,11 @@
  */
 const { Router } = require("express");
 const fs = require("fs");
+const { join } = require("path");
 const robot = require("robotjs");
 const { promisify } = require("util");
 const router = new Router();
-const { SCORES } = require("../utils/constants");
+const { SCORES, AUDIO } = require("../utils/constants");
 
 let last = ""
 const read = promisify(fs.readFile);
@@ -19,11 +20,31 @@ router.get("/edit", (req, res) => {
   res.render("index.ejs");
 });
 
+router.get("/submit", (req, res) => {
+  res.render("index.ejs");
+});
+
+router.get("/scores", (req, res) => {
+  res.render("index.ejs");
+});
+
 router.get("/api/get/scores", (req, res, next) => {
   read(SCORES)
     .then((result) => {
       res.setHeader("Content-Type", "application/json");
       res.send(result);
+      next();
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.get("/api/get/contestants", (req, res, next) => {
+  read(SCORES)
+    .then((result) => {
+      res.setHeader("Content-Type", "application/json");
+      res.send(JSON.stringify(JSON.parse(result).contestants));
       next();
     })
     .catch((err) => {

@@ -1,0 +1,45 @@
+/**
+ * Styles for written round
+ */
+@import "colours.scss";
+
+.submit-ans {
+  .row div {
+    height: 4em !important;
+  }
+  .form-control, button {
+    width: 100% !important;
+    height: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .row {
+    margin-top: 20px !important;
+  }
+}
+
+.written-table {
+  width: 100%;
+  text-align: center
+}
+
+.written-wrapper {
+  height: 100%;
+  width: 100%;
+  background-color: #212121;
+  color: #fff;
+  td, th {
+    border: solid #fff 2px;
+    text-align: center;
+    height: 50px;
+    font-family: 'Raleway', sans-serif;
+  }
+}
+
+.written-score-button {
+  button {
+    width: 100%;
+    height: 100%;
+  }
+  width: 5em;
+}

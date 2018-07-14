@@ -4,9 +4,10 @@
 @import "fonts.scss";
 
 // Import pages
+@import "admin.scss";
 @import "home.scss";
 @import "scores.scss";
-@import "admin.scss";
+@import "submit-ans.scss";
 
 // Root styles
 body {

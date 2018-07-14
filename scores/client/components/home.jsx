@@ -19,7 +19,9 @@ export default class Home extends Component {
         <h1 className="home-head">Where would you like to go?</h1>
         <div className="home-buttons">
           <Button bsStyle="success" bsSize="large"><Link to="/scores">Scores</Link></Button>
+          <Button bsStyle="primary" bsSize="large"><Link to="/submit">R1 submission</Link></Button>
           <Button bsStyle="info" bsSize="large"><Link to="/edit">Scores Control</Link></Button>
+          <Button bsStyle="warning" bsSize="large"><Link to="/edit-written">Written Scores Control</Link></Button>
         </div>
       </div>
     );

@@ -18,5 +18,6 @@ module.exports = {
     ),
     { flags: "a" }
   )} : {},
-  SCORES: path.join(__dirname, "..", "data", "scores.json")
+  SCORES: path.join(__dirname, "..", "data", "scores.json"),
+  AUDIO: path.join(__dirname, "../../pi/SFX")
 };
