@@ -3,6 +3,7 @@
  */
 const compression = require("compression");
 const express = require("express");
+const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
 const minify = require("express-minify");
 const minifyHTML = require("express-minify-html");
@@ -22,6 +23,10 @@ module.exports = (app) => {
   app.set("views", path.join(__dirname, "..", "public"));
   app.use("/modules", express.static(path.join(__dirname, "..", "node_modules")));
   // middleware
+  app.use(bodyParser.json());       // to support JSON-encoded bodies
+  app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+    extended: true
+  })); 
   app.use(morgan(constants.logLevel, constants.logOpions)); // Logger
   app.use(minify()); // Minify
   app.use(minifyHTML());

@@ -33,38 +33,20 @@ export default class AdminWritten extends Component {
             <tr>
               <td>Contest</td>
               <td>1</td>
-              <td className="written-right"><button className="written-right"><FontAwesome name="check" /></button></td>
-              <td><FontAwesome name="times" /></td>
+              <td className="written-right"><button><FontAwesome name="check" /></button></td>
+              <td className="written-wrong"><button><FontAwesome name="times" /></button></td>
               <td>2</td>
-              <td><FontAwesome name="check" /></td>
-              <td><FontAwesome name="times" /></td>
+              <td className="written-right"><button><FontAwesome name="check" /></button></td>
+              <td className="written-wrong"><button><FontAwesome name="times" /></button></td>
               <td>3</td>
-              <td><FontAwesome name="check" /></td>
-              <td><FontAwesome name="times" /></td>
+              <td className="written-right"><button><FontAwesome name="check" /></button></td>
+              <td className="written-wrong"><button><FontAwesome name="times" /></button></td>
               <td>4</td>
-              <td><FontAwesome name="check" /></td>
-              <td><FontAwesome name="times" /></td>
+              <td className="written-right"><button><FontAwesome name="check" /></button></td>
+              <td className="written-wrong"><button><FontAwesome name="times" /></button></td>
               <td>5</td>
-              <td><FontAwesome name="check" /></td>
-              <td><FontAwesome name="times" /></td>
-            </tr>
-            <tr>
-              <td>Contest 2</td>
-              <td>1</td>
-              <td><FontAwesome name="check" /></td>
-              <td><FontAwesome name="times" /></td>
-              <td>2</td>
-              <td><FontAwesome name="check" /></td>
-              <td><FontAwesome name="times" /></td>
-              <td>3</td>
-              <td><FontAwesome name="check" /></td>
-              <td><FontAwesome name="times" /></td>
-              <td>4</td>
-              <td><FontAwesome name="check" /></td>
-              <td><FontAwesome name="times" /></td>
-              <td>5</td>
-              <td><FontAwesome name="check" /></td>
-              <td><FontAwesome name="times" /></td>
+              <td className="written-right"><button><FontAwesome name="check" /></button></td>
+              <td className="written-wrong"><button><FontAwesome name="times" /></button></td>
             </tr>
           </tbody>
         </table>

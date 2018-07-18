@@ -26,20 +26,34 @@
 .written-wrapper {
   height: 100%;
   width: 100%;
-  background-color: #212121;
-  color: #fff;
+  background-color: $black;
+  color: $white;
   td, th {
-    border: solid #fff 2px;
+    border: solid $white 2px;
     text-align: center;
     height: 50px;
     font-family: 'Raleway', sans-serif;
   }
 }
 
-.written-score-button {
+%written-score-button {
   button {
     width: 100%;
     height: 100%;
   }
-  width: 5em;
+  width: 3em;
+}
+
+.written-right {
+  @extend %written-score-button;
+  button {
+    background-color: $green;
+  }
+}
+
+.written-wrong {
+  @extend %written-score-button;
+  button {
+    background-color: $red;
+  }
 }

@@ -27,6 +27,7 @@
     "webpack": "^3.8.1"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "bootstrap": "^3.3.7",
     "compression": "^1.7.1",
     "ejs": "^2.5.7",

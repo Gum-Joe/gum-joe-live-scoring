@@ -57,7 +57,11 @@ export default class SubmitWritten extends Component {
     return async () => {
       try {
         this.setState({ ...this.state, ans: [ ...this.state.ans, qid ] })
-        await ajax("/api/post/submit-ans").post();
+        await ajax("/api/post/submit-ans").post({
+          id: this.state.contestant.id,
+          qid,
+          ans: this.state[`a${qid}`]
+        });
       } catch (err) {
         console.error(err);
         throw err;

@@ -71,8 +71,14 @@ router.get("/api/get/buzz/:contestant", (req, res, next) => {
 
 // Send last scored
 router.get("/api/get/last", (req, res, next) => {
-  res.statusCode = 200
-  res.send(last)
-})
+  res.statusCode = 200;
+  res.send(last);
+});
 
+// Handle R1 submit
+router.post("/api/post/submit-ans", (req, res, next) => {
+  console.log(req.body);
+  res.statusCode = 200;
+  res.send("OK");
+});
 module.exports = router;
