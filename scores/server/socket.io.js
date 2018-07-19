@@ -5,10 +5,12 @@ const fs = require("fs");
 const { join } = require("path");
 const initSIO = require("socket.io");
 const { promisify } = require("util");
+const Datastore = require("nedb");
 const { SCORES } = require("../utils/constants");
 
 const read = promisify(fs.readFile);
 const write = promisify(fs.writeFile);
+const db = new Datastore();
 
 fs.open(SCORES, "a+", (err) => {
   if (err) {
@@ -34,12 +36,9 @@ function addSIO(server) {
     // Handle score update
     socket.on("add-one", (scores) => {
       // Read scores
-      let oldScores = require(SCORES).scores;
-      oldScores[scores.id].score++;
-      oldScores = {
-        scores: oldScores
-      };
-      socket.emit("update-scores", oldScores);
+      let oldScores = require(SCORES);
+      oldScores.scores[scores.id].score++;
+      io.emit("update-scores", oldScores);
 
       // Rewrite
       write(
@@ -56,12 +55,9 @@ function addSIO(server) {
 
     socket.on("subtract-one", (scores) => {
       // Read scores
-      let oldScores = require(SCORES).scores;
-      oldScores[scores.id].score--;
-      oldScores = {
-        scores: oldScores
-      };
-      socket.emit("update-scores", oldScores);
+      let oldScores = require(SCORES);
+      oldScores.scores[scores.id].score--;
+      io.emit("update-scores", oldScores);
 
       // Rewrite
       write(
@@ -78,11 +74,9 @@ function addSIO(server) {
 
     socket.on("change-score", (scores) => {
       // Read scores
-      let oldScores = require(SCORES).scores;
-      oldScores[scores.id].score = scores.score;
-      oldScores = {
-        scores: oldScores
-      };
+      let oldScores = require(SCORES);
+      oldScores.scores[scores.id].score = parseInt(scores.score);
+      io.emit("update-scores", oldScores);
 
       // Rewrite
       write(
@@ -96,6 +90,35 @@ function addSIO(server) {
         .catch(err => { throw err; });
 
     });
+
+    socket.on("add-custom", (scores) => {
+      // Read scores
+      let oldScores = require(SCORES);
+      oldScores.scores[scores.id].score += scores.value;
+      io.emit("update-scores", oldScores);
+
+      // Rewrite
+      write(
+        SCORES,
+        JSON.stringify(
+          oldScores,
+          null,
+          " "
+        )
+      )
+        .catch(err => { throw err; });
+
+    });
+
+    socket.on("add-written", (answer) => {
+      io.emit("new-answer", answer);
+      console.log(answer);
+      db.insert(answer, function (err, newDoc) {
+        if (err) {
+          throw err;
+        }
+      });
+    })
   });
 }
 

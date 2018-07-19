@@ -12,20 +12,18 @@ let lastBuzz = "";
 
 export default class Scores extends Component {
   componentDidMount() {
-    // Socket.io should be used, but this works better
-    setInterval(() => {
-      ajax("/api/get/scores")
-        .get()
-        .then(res => {
-          this.props.dispatch({
-            type: "INJECT",
-            scores: JSON.parse(res.response).scores
-          });
-        })
-        .catch(err => {
-          throw err;
+    ajax("/api/get/scores")
+      .get()
+      .then(res => {
+        this.props.dispatch({
+          type: "INJECT",
+          scores: JSON.parse(res.response).scores
         });
-
+      })
+      .catch(err => {
+        throw err;
+      });
+    setInterval(() => {
       ajax("/api/get/last")
         .get()
         .then(res => {
@@ -36,7 +34,7 @@ export default class Scores extends Component {
         });
     }, 250);
     // Socket.io
-    //socket.on("update-scores", scores => this.props.dispatch({ type: "INJECT", scores: scores.scores }));
+    socket.on("update-scores", scores => this.props.dispatch({ type: "INJECT", scores: scores.scores }));
   }
 
   render() {

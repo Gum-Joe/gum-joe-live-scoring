@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ajax from "es-ajax";
 import { Button } from "react-bootstrap";
 import { Col, Grid, Row, FormControl } from "react-bootstrap";
+import io from "socket.io-client";
+const socket = io();
 
 export default class SubmitWritten extends Component {
   constructor(props) {
@@ -57,11 +59,26 @@ export default class SubmitWritten extends Component {
     return async () => {
       try {
         this.setState({ ...this.state, ans: [ ...this.state.ans, qid ] })
-        await ajax("/api/post/submit-ans").post({
+        /** await ajax("/api/post/submit-ans").post({
+          id: this.state.contestant.id,
+          qid,
+          ans: this.state[`a${qid}`]
+        }); */
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/post/submit-ans", true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(JSON.stringify({
+          id: this.state.contestant.id,
+          qid,
+          ans: this.state[`a${qid}`]
+        }));
+
+        socket.emit("add-written", {
           id: this.state.contestant.id,
           qid,
           ans: this.state[`a${qid}`]
         });
+
       } catch (err) {
         console.error(err);
         throw err;

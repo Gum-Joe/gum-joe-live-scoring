@@ -1,0 +1,50 @@
+{
+  "contestants": [
+    {
+      "name": "GrandMF",
+      "id": 0,
+      "hotkey": "f21",
+      "audio": "GrandM.mp3"
+    },
+    {
+      "name": "BeardoiusMaximus",
+      "id": 1,
+      "hotkey": "f22",
+      "audio": "Beardoius.mp3"
+    },
+    {
+      "name": "Lukas",
+      "id": 2,
+      "hotkey": "f23",
+      "audio": "Lukas.mp3"
+    },
+    {
+      "name": "KingM",
+      "id": 3,
+      "hotkey": "f24",
+      "audio": "Sam.mp3"
+    }
+  ],
+  "scores": [
+  {
+   "name": "GrandMF",
+   "score": 3,
+   "id": 0
+  },
+  {
+   "name": "BeardoiusMaximus",
+   "score": "0",
+   "id": 1
+  },
+  {
+   "name": "Lukas",
+   "score": "0",
+   "id": 2
+  },
+  {
+   "name": "KingM",
+   "score": "0",
+   "id": 3
+  }
+ ]
+}
