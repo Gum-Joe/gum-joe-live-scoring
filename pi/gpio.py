@@ -22,6 +22,7 @@ ADDRESS = "https://9e7f2197.ngrok.io" # Address to send who buzzed to
 ROUTE = "/api/get/buzz" # Route on the server
 SENDTO = ADDRESS + ROUTE
 SLEEPTIME = 2 # secs
+SENDTO_MUSIC = "http://192.168.0.10:4040/api/get/music"
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(pins[0], GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # C1
@@ -40,7 +41,9 @@ def send(id):
 	print("[DEBUG] Sending buzz request for contestant with ID " + str(id))
 	play(id)
 	r = requests.get(SENDTO + "/" + str(id))
-	print("[DEBUG] " + str(r.status_code) + str(r.reason))
+	print("[DEBUG:SCORES] " + str(r.status_code) + str(r.reason))
+	r = requests.get(SENDTO_MUSIC + "/" + str(id))
+	print("[DEBUG:MUSIC] " + str(r.status_code) + str(r.reason))
 	
 while True:
 	c1 = GPIO.input(pins[0])

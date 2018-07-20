@@ -59,12 +59,12 @@ router.get("/api/get/contestants", (req, res, next) => {
  */
 router.get("/api/get/buzz/:contestant", (req, res, next) => {
   const records = require(SCORES);
-  if (typeof records.contestant[req.params.contestant] === "undefined") {
+  if (typeof records.contestants[req.params.contestant] === "undefined") {
     res.statusCode = 404;
     res.send("ERROR: Invalid Contestant");
   } else {
-    last = records.contestant[req.params.contestant].name;
-    robot.keyTap(records.contestant[req.params.contestant].hotkey);
+    last = records.contestants[req.params.contestant].name;
+    robot.keyTap(records.contestants[req.params.contestant].hotkey);
     res.statusCode = 200;
     res.send("OK");
   }
