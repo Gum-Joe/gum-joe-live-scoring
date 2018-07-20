@@ -28,22 +28,22 @@
  "scores": [
   {
    "name": "GrandMF",
-   "score": "0",
+   "score": 9,
    "id": 0
   },
   {
    "name": "BeardoiusMaximus",
-   "score": "0",
+   "score": 45,
    "id": 1
   },
   {
    "name": "Lukas",
-   "score": "0",
+   "score": 27,
    "id": 2
   },
   {
    "name": "KingM",
-   "score": "0",
+   "score": 0,
    "id": 3
   }
  ]

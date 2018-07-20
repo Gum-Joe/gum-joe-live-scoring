@@ -3,32 +3,41 @@
  */
 import React, { Component } from "react";
 import FontAwesome from "react-fontawesome";
+import { Button } from "react-bootstrap";
 import ajax from "es-ajax";
 import io from "socket.io-client";
 const socket = io();
+
+const defaultState = () => {
+  return {
+    ans: {
+      c0: ["", "", "", "", ""],
+      c1: ["", "", "", "", ""],
+      c2: ["", "", "", "", ""],
+      c3: ["", "", "", "", ""],
+      c4: ["", "", "", "", ""],
+    },
+    correct: {
+      c0: [null, null, null, null, null],
+      c1: [null, null, null, null, null],
+      c2: [null, null, null, null, null],
+      c3: [null, null, null, null, null],
+      c4: [null, null, null, null, null],
+    }
+  }
+}
 
 export default class AdminWritten extends Component {
   constructor(props) {
     super(props);
     this.state = {
       contestants: [],
-      ans: {
-        c0: ["", "", "", "", ""],
-        c1: ["", "", "", "", ""],
-        c2: ["", "", "", "", ""],
-        c3: ["", "", "", "", ""],
-        c4: ["", "", "", "", ""],
-      },
-      correct: {
-        c0: [false, false, false, false, false],
-        c1: [false, false, false, false, false],
-        c2: [false, false, false, false, false],
-        c3: [false, false, false, false, false],
-        c4: [false, false, false, false, false],
-      }
-    }
+      ...defaultState()
+    } 
     this.rightHandle = this.rightHandle.bind(this);
     this.wrongHandle = this.wrongHandle.bind(this);
+    this.check = this.check.bind(this);
+    this.clear = this.clear.bind(this);
   }
   async componentDidMount() {
     try {
@@ -66,7 +75,7 @@ export default class AdminWritten extends Component {
       newState.correct[`c${contestID}`][qid] = true;
       this.setState(newState);
 
-      socket.emit("add-custom", {
+      /**socket.emit("add-custom", {
         id: contestID,
         value: 3
       });
@@ -77,7 +86,7 @@ export default class AdminWritten extends Component {
           id: contestID,
           value: 15
         });
-      }
+      }*/
     }
   }
 
@@ -92,9 +101,50 @@ export default class AdminWritten extends Component {
         ...this.state
       }
       newState.ans[`c${contestID}`][qid] += " ❌";
-      newState.correct[`c${contestID}`][qid] = true;
+      newState.correct[`c${contestID}`][qid] = false;
       this.setState(newState);
     }
+  }
+
+  /**
+   * Checks and awards points
+   */
+  check() {
+    // Go through each array
+    this.state.contestants.forEach(contest => {
+      let score = 0;
+      for (const value of this.state.correct[`c${contest.id}`]) {
+        if (value === true) {
+          // Add 3
+          score += 3;
+        } else if (value === false) {
+          // LOSE ALL POINTS
+          score = 0;
+          break;
+        }
+      }
+      // If score is 15, add bounus as all correct
+      //if (score === 15) {
+      //  score += 15;
+      //}
+
+      // Send
+      socket.emit("add-custom", {
+        id: contest.id,
+        value: score
+      });
+    })
+  }
+
+  /**
+   * Clears ans
+   */
+  clear() {
+    this.setState({ 
+      contestants: this.state.contestants,
+      ...defaultState()
+    });
+    socket.emit("clear-written", { clear: true });
   }
 
   render() {
@@ -146,6 +196,8 @@ export default class AdminWritten extends Component {
             }
           </tbody>
         </table>
+        <Button className="check-btn" onClick={this.check} bsStyle="primary" bsSize="large">Check</Button>
+        <Button className="check-btn" onClick={this.clear} bsStyle="danger" bsSize="large">Clear</Button>
       </div>
     )
   }

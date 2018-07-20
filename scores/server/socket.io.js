@@ -94,7 +94,7 @@ function addSIO(server) {
     socket.on("add-custom", (scores) => {
       // Read scores
       let oldScores = require(SCORES);
-      oldScores.scores[scores.id].score += scores.value;
+      oldScores.scores[scores.id].score += parseInt(scores.value);
       io.emit("update-scores", oldScores);
 
       // Rewrite
@@ -118,7 +118,9 @@ function addSIO(server) {
           throw err;
         }
       });
-    })
+    });
+
+    socket.on("clear-written", () => io.emit("clear-written-server", {}))
   });
 }
 

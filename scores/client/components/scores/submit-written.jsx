@@ -24,6 +24,17 @@ export default class SubmitWritten extends Component {
   async componentWillMount() {
     this.handleChange = this.handleChange.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    socket.on("clear-written-server", () => {
+      this.setState({
+        ...this.state,
+        a1: "",
+        a2: "",
+        a3: "",
+        a4: "",
+        a5: "",
+        ans: []
+      });
+    })
     try {
       const { response } = await ajax("/api/get/contestants").get();
       this.setState({
