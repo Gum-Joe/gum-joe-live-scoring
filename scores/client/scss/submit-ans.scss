@@ -53,6 +53,7 @@
 
 .written-right {
   @extend %written-score-button;
+  background-color: $green;
   button {
     background-color: $green;
   }
@@ -60,6 +61,7 @@
 
 .written-wrong {
   @extend %written-score-button;
+  background-color: $red;
   button {
     background-color: $red;
   }

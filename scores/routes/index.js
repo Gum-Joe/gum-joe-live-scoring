@@ -9,7 +9,7 @@ const router = require("express").Router();
 const Datastore = require("nedb");
 const { SCORES, AUDIO } = require("../utils/constants");
 
-let last = ""
+let last = {};
 const read = promisify(fs.readFile);
 const db = new Datastore();
 
@@ -63,7 +63,7 @@ router.get("/api/get/buzz/:contestant", (req, res, next) => {
     res.statusCode = 404;
     res.send("ERROR: Invalid Contestant");
   } else {
-    last = records.contestants[req.params.contestant].name;
+    last = records.contestants[req.params.contestant];
     robot.keyTap(records.contestants[req.params.contestant].hotkey);
     res.statusCode = 200;
     res.send("OK");
@@ -72,8 +72,9 @@ router.get("/api/get/buzz/:contestant", (req, res, next) => {
 
 // Send last scored
 router.get("/api/get/last", (req, res, next) => {
+  res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;
-  res.send(last);
+  res.send(JSON.stringify(last));
 });
 
 // Get ans of a contestant
