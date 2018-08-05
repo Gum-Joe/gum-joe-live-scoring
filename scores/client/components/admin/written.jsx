@@ -19,7 +19,7 @@ const defaultState = () => {
     },
     correct: {
       c0: [null, null, null, null, null],
-      c1: [null, null, null, null, null],
+	    c1: [null, null, null, null, null],
       c2: [null, null, null, null, null],
       c3: [null, null, null, null, null],
       c4: [null, null, null, null, null],
@@ -124,9 +124,9 @@ export default class AdminWritten extends Component {
         }
       }
       // If score is 15, add bounus as all correct
-      //if (score === 15) {
-      //  score += 15;
-      //}
+      if (score === 12) {
+        score += 12;
+      }
 
       // Send
       socket.emit("add-custom", {
@@ -166,9 +166,6 @@ export default class AdminWritten extends Component {
               <th>Question 4</th>
               <th><FontAwesome name="check" /></th>
               <th><FontAwesome name="times" /></th>
-              <th>Question 5</th>
-              <th><FontAwesome name="check" /></th>
-              <th><FontAwesome name="times" /></th>
             </tr>
           </thead>
           <tbody>
@@ -188,15 +185,12 @@ export default class AdminWritten extends Component {
                   <td>{this.state.ans[`c${contest.id}`][3]}</td>
                   <td className="written-right"><button onClick={this.rightHandle(3, contest.id)}><FontAwesome name="check" /></button></td>
                   <td className="written-wrong"><button onClick={this.wrongHandle(3, contest.id)}><FontAwesome name="times" /></button></td>
-                  <td>{this.state.ans[`c${contest.id}`][4]}</td>
-                  <td className="written-right"><button onClick={this.rightHandle(4, contest.id)}><FontAwesome name="check" /></button></td>
-                  <td className="written-wrong"><button onClick={this.wrongHandle(4, contest.id)}><FontAwesome name="times" /></button></td>
                 </tr>
               )
             }
           </tbody>
         </table>
-        <Button className="check-btn" onClick={this.check} bsStyle="primary" bsSize="large">Check</Button>
+        <Button className="check-btn" onClick={this.check} bsStyle="primary" bsSize="large">Confirm</Button>
         <Button className="check-btn" onClick={this.clear} bsStyle="danger" bsSize="large">Clear</Button>
       </div>
     )

@@ -10,7 +10,7 @@ import io from "socket.io-client";
 import { increment, deincrement, set } from "../../action/score";
 const socket = io();
 
-const MUSIC_IP = "localhost:4040";
+const MUSIC_IP = "192.168.0.14:4040";
 const numberword = [
   "one",
   "two",
@@ -47,7 +47,8 @@ export default class ScoresAdmin extends Component {
       });*/
     setInterval(async () => {
       try {
-        const { response } = await ajax("/api/get/last").get()
+        const { response } = await ajax("/api/get/last").get();
+        console.log(JSON.parse(response));
         this.setState({
           ...this.state,
           last: JSON.parse(response)
@@ -117,11 +118,11 @@ export default class ScoresAdmin extends Component {
               this.props.dispatch(increment(this.state.last.id));
               this.props.dispatch(increment(this.state.last.id));
               this.props.dispatch(increment(this.state.last.id));
-              await ajax(`http://${MUSIC_IP}/api/get/unbuzz`).get();
+              await ajax(`http://${MUSIC_IP}/api/get/right`).get();
             }}><FontAwesome name="check" /></button>
             <button className="written-wrong" onClick={async () => {
               this.props.dispatch(deincrement(this.state.last.id));
-              await ajax(`http://${MUSIC_IP}/api/get/unbuzz`).get();
+              await ajax(`http://${MUSIC_IP}/api/get/wrong`).get();
             }}><FontAwesome name="times" /></button>
           </div>
         </div>

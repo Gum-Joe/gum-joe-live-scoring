@@ -18,10 +18,10 @@ export default class Home extends Component {
       <div className="home-wrapper">
         <h1 className="home-head">Where would you like to go?</h1>
         <div className="home-buttons">
-          <Button bsStyle="success" bsSize="large"><Link to="/scores">Scores</Link></Button>
-          <Button bsStyle="primary" bsSize="large"><Link to="/submit">R1 submission</Link></Button>
-          <Button bsStyle="info" bsSize="large"><Link to="/edit">Scores Control</Link></Button>
-          <Button bsStyle="warning" bsSize="large"><Link to="/edit-written">Written Scores Control</Link></Button>
+          <Link to="/scores"><Button bsStyle="success" bsSize="large">Scores</Button></Link>
+          <Link to="/submit"><Button bsStyle="primary" bsSize="large">R1 submission</Button></Link>
+          <Link to="/edit"><Button bsStyle="info" bsSize="large">Scores Control</Button></Link>
+          <Link to="/edit-written"><Button bsStyle="warning" bsSize="large">Written Scores Control</Button></Link>
         </div>
       </div>
     );

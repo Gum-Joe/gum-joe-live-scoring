@@ -11,6 +11,12 @@ const socket = io();
 let lastBuzz = "";
 
 export default class Scores extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      last: ""
+    };
+  }
   componentDidMount() {
     ajax("/api/get/scores")
       .get()
@@ -27,7 +33,11 @@ export default class Scores extends Component {
       ajax("/api/get/last")
         .get()
         .then(res => {
-          lastBuzz = res.response;
+          console.log(JSON.parse(res.response).name);
+          this.setState({
+            ...this.state,
+            last: JSON.parse(res.response).name
+          });
         })
         .catch(err => {
           throw err;
@@ -90,7 +100,7 @@ export default class Scores extends Component {
             </Col> */}
           </Row>
           <Row>
-            <h2>Last Buzz: {lastBuzz}</h2>
+            <h2>Last Buzz: {this.state.last}</h2>
           </Row>
         </Grid>
       </div>

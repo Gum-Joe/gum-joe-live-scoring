@@ -16,9 +16,8 @@ export default class SubmitWritten extends Component {
       a2: "",
       a3: "",
       a4: "",
-      a5: "",
       ans: [],
-      questions: [1, 2, 3, 4, 5]
+      questions: [1, 2, 3, 4]
     }
   }
   async componentWillMount() {
