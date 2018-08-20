@@ -11,6 +11,7 @@ const { SCORES } = require("../utils/constants");
 const read = promisify(fs.readFile);
 const write = promisify(fs.writeFile);
 const db = new Datastore();
+let tmp_db = new Datastore();
 
 fs.open(SCORES, "a+", (err) => {
   if (err) {
@@ -120,7 +121,23 @@ function addSIO(server) {
       });
     });
 
-    socket.on("clear-written", () => io.emit("clear-written-server", {}))
+    socket.on("clear-written", () => {
+      io.emit("clear-written-server", {});
+      tmp_db = new Datastore();
+
+    });
+
+    socket.on("change-written-live", (ans) => {
+      tmp_db.insert(ans, function (err, newDoc) {
+        if (err) {
+          throw err;
+        }
+      });
+      io.emit("change-written-live-fserver", ans);
+    });
+
+    socket.on("mark-correct", data => io.emit("mark-correct-server", data));
+    socket.on("mark-wrong", data => io.emit("mark-wrong-server", data));
   });
 }
 

@@ -8,7 +8,7 @@ import Home from "./home";
 import SubmitWritten from "./scores/submit-written";
 import Scores from "../containers/scores";
 import ScoresAdmin from "../containers/admin";
-import AdminWritten from "./admin/written";
+import { AdminWrittenContainer, ShowWritten } from "./admin/written";
 import store from "../reducers";
 
 // Styles
@@ -29,8 +29,9 @@ export default class App extends Component {
             <Route exact path="/" component={Home}/>
             <Route path="/scores" component={Scores} />
             <Route path="/edit" component={ScoresAdmin} />
-            <Route path="/edit-written" component={AdminWritten} />
+            <Route path="/edit-written" component={AdminWrittenContainer} />
             <Route path="/submit" component={SubmitWritten} />
+            <Route path="/show-written" component={ShowWritten} />
           </Switch>
         </BrowserRouter>
       </Provider>

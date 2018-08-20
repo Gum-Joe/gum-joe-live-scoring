@@ -22,6 +22,7 @@ export default class Home extends Component {
           <Link to="/submit"><Button bsStyle="primary" bsSize="large">R1 submission</Button></Link>
           <Link to="/edit"><Button bsStyle="info" bsSize="large">Scores Control</Button></Link>
           <Link to="/edit-written"><Button bsStyle="warning" bsSize="large">Written Scores Control</Button></Link>
+          <Link to="/show-written"><Button bsStyle="danger" bsSize="large">Show Written Scores</Button></Link>
         </div>
       </div>
     );

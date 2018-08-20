@@ -23,11 +23,18 @@ const defaultState = () => {
       c2: [null, null, null, null, null],
       c3: [null, null, null, null, null],
       c4: [null, null, null, null, null],
+    },
+    submited: {
+      c0: [false, false, false, false, false,],
+      c1: [false, false, false, false, false,],
+      c2: [false, false, false, false, false,],
+      c3: [false, false, false, false, false,],
+      c4: [false, false, false, false, false,],
     }
   }
 }
 
-export default class AdminWritten extends Component {
+export class ShowWritten extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,12 +49,58 @@ export default class AdminWritten extends Component {
   async componentDidMount() {
     try {
       socket.on("new-answer", answer => {
-        // Handle answer
-        const newState = {
-          ...this.state,
-        };
-        newState.ans[`c${answer.id}`][answer.qid - 1] = answer.ans;
-        this.setState(newState);
+        if (!this.state.submited[`c${answer.id}`][answer.qid - 1]) {
+          // Handle answer
+          const newState = {
+            ...this.state,
+          };
+          if (answer.ans === "") {
+            newState.ans[`c${answer.id}`][answer.qid - 1] = "<BLANK>";
+          } else {
+            newState.ans[`c${answer.id}`][answer.qid - 1] = answer.ans;
+          }
+          newState.submited[`c${answer.id}`][answer.qid - 1] = true;
+          this.setState(newState);
+        }
+      });
+
+      socket.on("clear-written-server", () => {
+        this.setState({
+          contestants: this.state.contestants,
+          ...defaultState()
+        });
+      })
+
+      socket.on("change-written-live-fserver", answer => {
+        if (!this.state.submited[`c${answer.id}`][answer.qid - 1]) {
+          const newState = {
+            ...this.state,
+          };
+          newState.ans[`c${answer.id}`][answer.qid - 1] = answer.ans;
+          this.setState(newState);
+        }
+      });
+
+      socket.on("mark-correct-server", ans => {
+        if (this.state.correct[`c${ans.id}`][ans.qid] === null) {
+          const newState = {
+            ...this.state
+          }
+          newState.ans[`c${ans.id}`][ans.qid] += " ✔️";
+          newState.correct[`c${ans.id}`][ans.qid] = false;
+          this.setState(newState);
+        }
+      });
+
+      socket.on("mark-wrong-server", ans => {
+        if (this.state.correct[`c${ans.id}`][ans.qid] === null) {
+          const newState = {
+            ...this.state
+          }
+          newState.ans[`c${ans.id}`][ans.qid] += " ❌";
+          newState.correct[`c${ans.id}`][ans.qid] = false;
+          this.setState(newState);
+        }
       });
 
       const { response } = await ajax("/api/get/contestants").get();
@@ -68,12 +121,16 @@ export default class AdminWritten extends Component {
    */
   rightHandle(qid, contestID) {
     return () => {
-      const newState = {
-        ...this.state
+      if (this.state.correct[`c${contestID}`][qid] === null) {
+        const newState = {
+          ...this.state
+        }
+        newState.ans[`c${contestID}`][qid] += " ✔️";
+        newState.correct[`c${contestID}`][qid] = true;
+        this.setState(newState);
+
+        socket.emit("mark-correct", { qid, id: contestID });
       }
-      newState.ans[`c${contestID}`][qid] += " ✓";
-      newState.correct[`c${contestID}`][qid] = true;
-      this.setState(newState);
 
       /**socket.emit("add-custom", {
         id: contestID,
@@ -97,12 +154,16 @@ export default class AdminWritten extends Component {
    */
   wrongHandle(qid, contestID) {
     return () => {
-      const newState = {
-        ...this.state
+      if (this.state.correct[`c${contestID}`][qid] === null) {
+        const newState = {
+          ...this.state
+        }
+        newState.ans[`c${contestID}`][qid] += " ❌";
+        newState.correct[`c${contestID}`][qid] = false;
+        this.setState(newState);
+
+        socket.emit("mark-wrong", { qid, id: contestID });
       }
-      newState.ans[`c${contestID}`][qid] += " ❌";
-      newState.correct[`c${contestID}`][qid] = false;
-      this.setState(newState);
     }
   }
 
@@ -133,7 +194,8 @@ export default class AdminWritten extends Component {
         id: contest.id,
         value: score
       });
-    })
+    });
+    this.clear();
   }
 
   /**
@@ -155,17 +217,17 @@ export default class AdminWritten extends Component {
             <tr>
               <th>Contestants</th>
               <th>Question 1</th>
-              <th><FontAwesome name="check" /></th>
-              <th><FontAwesome name="times" /></th>
+              { this.props.isManager ? <th><FontAwesome name="check" /></th> : null }
+              { this.props.isManager ?  <th><FontAwesome name="times" /></th>  : null }
               <th>Question 2</th>
-              <th><FontAwesome name="check" /></th>
-              <th><FontAwesome name="times" /></th>
+              { this.props.isManager ? <th><FontAwesome name="check" /></th> : null }
+              { this.props.isManager ? <th><FontAwesome name="times" /></th> : null }
               <th>Question 3</th>
-              <th><FontAwesome name="check" /></th>
-              <th><FontAwesome name="times" /></th>
+              { this.props.isManager ? <th><FontAwesome name="check" /></th> : null }
+              { this.props.isManager ? <th><FontAwesome name="times" /></th> : null }
               <th>Question 4</th>
-              <th><FontAwesome name="check" /></th>
-              <th><FontAwesome name="times" /></th>
+              { this.props.isManager ? <th><FontAwesome name="check" /></th> : null }
+              { this.props.isManager ? <th><FontAwesome name="times" /></th> : null }
             </tr>
           </thead>
           <tbody>
@@ -173,26 +235,50 @@ export default class AdminWritten extends Component {
               this.state.contestants.map(
                 contest => <tr>
                   <td>{contest.name}</td>
-                  <td>{this.state.ans[`c${contest.id}`][0]}</td>
-                  <td className="written-right"><button onClick={this.rightHandle(0, contest.id)}><FontAwesome name="check" /></button></td>
-                  <td className="written-wrong"><button onClick={this.wrongHandle(0, contest.id)}><FontAwesome name="times" /></button></td>
-                  <td>{this.state.ans[`c${contest.id}`][1]}</td>
-                  <td className="written-right"><button onClick={this.rightHandle(1, contest.id)}><FontAwesome name="check" /></button></td>
-                  <td className="written-wrong"><button onClick={this.wrongHandle(1, contest.id)}><FontAwesome name="times" /></button></td>
-                  <td>{this.state.ans[`c${contest.id}`][2]}</td>
-                  <td className="written-right"><button onClick={this.rightHandle(2, contest.id)}><FontAwesome name="check" /></button></td>
-                  <td className="written-wrong"><button onClick={this.wrongHandle(2, contest.id)}><FontAwesome name="times" /></button></td>
-                  <td>{this.state.ans[`c${contest.id}`][3]}</td>
-                  <td className="written-right"><button onClick={this.rightHandle(3, contest.id)}><FontAwesome name="check" /></button></td>
-                  <td className="written-wrong"><button onClick={this.wrongHandle(3, contest.id)}><FontAwesome name="times" /></button></td>
+                  <td className={`submitted-${this.state.submited[`c${contest.id}`][0]}`}>{this.state.ans[`c${contest.id}`][0]}</td>
+                  { 
+                    this.props.isManager ? <td className="written-right"><button onClick={this.rightHandle(0, contest.id)}><FontAwesome name="check" /></button></td> : null
+                  }
+                  {
+                    this.props.isManager ? <td className="written-wrong"><button onClick={this.wrongHandle(0, contest.id)}><FontAwesome name="times" /></button></td> : null
+                  }
+                  <td className={`submitted-${this.state.submited[`c${contest.id}`][1]}`}>{this.state.ans[`c${contest.id}`][1]}</td>
+                  {
+                    this.props.isManager ? <td className="written-right"><button onClick={this.rightHandle(1, contest.id)}><FontAwesome name="check" /></button></td> : null
+                  }
+                  {
+                    this.props.isManager ? <td className="written-wrong"><button onClick={this.wrongHandle(1, contest.id)}><FontAwesome name="times" /></button></td> : null
+                  }
+                  <td className={`submitted-${this.state.submited[`c${contest.id}`][2]}`}>{this.state.ans[`c${contest.id}`][2]}</td>
+                  {
+                    this.props.isManager ? <td className="written-right"><button onClick={this.rightHandle(2, contest.id)}><FontAwesome name="check" /></button></td> : null
+                  }
+                  {
+                    this.props.isManager ? <td className="written-wrong"><button onClick={this.wrongHandle(2, contest.id)}><FontAwesome name="times" /></button></td> : null
+                  }
+                  <td className={`submitted-${this.state.submited[`c${contest.id}`][3]}`}>{this.state.ans[`c${contest.id}`][3]}</td>
+                  {
+                    this.props.isManager ? <td className="written-right"><button onClick={this.rightHandle(3, contest.id)}><FontAwesome name="check" /></button></td> : null
+                  }
+                  {
+                    this.props.isManager ? <td className="written-wrong"><button onClick={this.wrongHandle(3, contest.id)}><FontAwesome name="times" /></button></td> : null
+                  }
                 </tr>
               )
             }
           </tbody>
         </table>
-        <Button className="check-btn" onClick={this.check} bsStyle="primary" bsSize="large">Confirm</Button>
-        <Button className="check-btn" onClick={this.clear} bsStyle="danger" bsSize="large">Clear</Button>
+        { this.props.isManager ? <Button className="check-btn" onClick={this.check} bsStyle="primary" bsSize="large">Confirm</Button> : null }
+        { this.props.isManager ? <Button className="check-btn" onClick={this.clear} bsStyle="danger" bsSize="large">Clear</Button> : null }
       </div>
+    )
+  }
+}
+
+export class AdminWrittenContainer extends Component {
+  render() {
+    return (
+      <ShowWritten isManager={true} />
     )
   }
 }

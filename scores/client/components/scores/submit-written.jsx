@@ -5,7 +5,7 @@ import { Col, Grid, Row, FormControl } from "react-bootstrap";
 import io from "socket.io-client";
 const socket = io();
 
-export default class SubmitWritten extends Component {
+export default class ShowWritten extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +33,7 @@ export default class SubmitWritten extends Component {
         a5: "",
         ans: []
       });
-    })
+    });
     try {
       const { response } = await ajax("/api/get/contestants").get();
       this.setState({
@@ -57,6 +57,11 @@ export default class SubmitWritten extends Component {
       const newState = {}
       newState[`a${qid}`] = event.target.value;
       this.setState({...this.state, ...newState});
+      socket.emit("change-written-live", {
+        id: this.state.contestant.id,
+        qid,
+        ans: event.target.value,
+      });
     }
   }
 
