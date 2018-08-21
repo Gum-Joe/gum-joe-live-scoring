@@ -1,48 +1,48 @@
 {
  "contestants": [
   {
-   "name": "GrandMF",
+   "name": "Brexit",
    "id": 0,
    "hotkey": "f21",
    "audio": "GrandM.mp3"
   },
   {
-   "name": "BeardoiusMaximus",
+   "name": "Yak3000",
    "id": 1,
    "hotkey": "f22",
    "audio": "Beardoius.mp3"
   },
   {
-   "name": "Lukas",
+   "name": "KingM",
    "id": 2,
    "hotkey": "f23",
    "audio": "Lukas.mp3"
   },
   {
-   "name": "KingM",
+   "name": "GrandMF",
    "id": 3,
    "hotkey": "f24",
    "audio": "Sam.mp3"
   }
  ],
  "scores": [
-  {
-   "name": "GrandMF",
+   {
+   "name": "Brexit",
    "score": 0,
    "id": 0
   },
   {
-   "name": "BeardoiusMaximus",
-   "score": 6,
+   "name": "Yak3000",
+   "score": 0,
    "id": 1
   },
   {
-   "name": "Lukas",
-   "score": 120,
+   "name": "KingM",
+   "score": 0,
    "id": 2
   },
   {
-   "name": "KingM",
+   "name": "GrandMF",
    "score": 0,
    "id": 3
   }

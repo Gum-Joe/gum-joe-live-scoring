@@ -120,4 +120,10 @@ app.get("/api/get/wrong", (req, res, next) => {
   });
 });
 
+app.get("/api/get/reset", (req, res, next) => {
+  buzzed = false;
+  res.statusCode = 200;
+  res.send("Buzzers Reset");
+})
+
 app.listen(4040, () => console.log("[INFO] Listening on port 4040"));

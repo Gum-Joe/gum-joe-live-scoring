@@ -18,11 +18,11 @@ music = [
 ]
 MUSIC_ROOT = "./SFX/"
 MUSIC_FILE = ".mp3"
-ADDRESS = "https://9e7f2197.ngrok.io" # Address to send who buzzed to
+ADDRESS = "http://192.168.0.22:3030" # Address to send who buzzed to
 ROUTE = "/api/get/buzz" # Route on the server
 SENDTO = ADDRESS + ROUTE
 SLEEPTIME = 2 # secs
-SENDTO_MUSIC = "http://192.168.0.10:4040/api/get/music"
+SENDTO_MUSIC = "http://192.168.0.22:4040/api/get/music"
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(pins[0], GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # C1

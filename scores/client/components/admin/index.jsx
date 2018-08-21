@@ -10,7 +10,7 @@ import io from "socket.io-client";
 import { increment, deincrement, set } from "../../action/score";
 const socket = io();
 
-const MUSIC_IP = "192.168.0.14:4040";
+const MUSIC_IP = "192.168.0.22:4040";
 const numberword = [
   "one",
   "two",
