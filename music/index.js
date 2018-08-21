@@ -6,7 +6,7 @@ const { join } = require("path");
 const { exec } = require("child_process");
 
 const app = express();
-const ENDING = "mp3";
+const ENDING = "wav";
 let buzzed = false;
 
 app.get(`/api/get/music/0`, (req, res, next) => {
