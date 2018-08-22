@@ -6,9 +6,9 @@ import pygame
 
 pins = [ # Pins in order of contestant ID
 	16,
-	18,
+	26,
 	22,
-	26
+	18
 ]
 music = [
 	"Brexit",
