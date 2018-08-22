@@ -185,7 +185,7 @@ export class ShowWritten extends Component {
         }
       }
       // If score is 15, add bounus as all correct
-      if (score === 12) {
+      if (score === 12) { 
         score += 12;
       }
 

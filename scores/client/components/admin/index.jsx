@@ -10,7 +10,7 @@ import io from "socket.io-client";
 import { increment, deincrement, set } from "../../action/score";
 const socket = io();
 
-const MUSIC_IP = "192.168.0.22:4040";
+const MUSIC_IP = "192.168.0.16:4040";
 const numberword = [
   "one",
   "two",
@@ -124,6 +124,7 @@ export default class ScoresAdmin extends Component {
               this.props.dispatch(deincrement(this.state.last.id));
               await ajax(`http://${MUSIC_IP}/api/get/wrong`).get();
             }}><FontAwesome name="times" /></button>
+            <button className="written-reset"><FontAwesome name="undo" /></button>
           </div>
         </div>
       </div>

@@ -68,6 +68,14 @@
   }
 }
 
+.written-reset {
+  @extend %written-score-button;
+  background-color: $blue;
+  button {
+    background-color: $blue;
+  }
+}
+
 .submitted-true {
   color: #18FFFF;
 }

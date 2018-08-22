@@ -6,6 +6,9 @@
   "repository": "https://github.com/Gum-Joe/gum-joe-live-scoring",
   "author": "Gum-Joe",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "express": "^4.16.3",
     "speaker": "^0.4.1"
