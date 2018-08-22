@@ -39,7 +39,7 @@ def play(id):
 # Program to send whio
 def send(id):
 	print("[DEBUG] Sending buzz request for contestant with ID " + str(id))
-	play(id)
+	# play(id)
 	r = requests.get(SENDTO + "/" + str(id))
 	print("[DEBUG:SCORES] " + str(r.status_code) + str(r.reason))
 	r = requests.get(SENDTO_MUSIC + "/" + str(id))
