@@ -15,6 +15,12 @@ const http = require("http").Server(app);
 addMiddleware(app);
 addSIO(http); // Socket.io
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // Init router
 app.use("/", router);
 

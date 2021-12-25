@@ -10,7 +10,7 @@ import io from "socket.io-client";
 import { increment, deincrement, set } from "../../action/score";
 const socket = io();
 
-const MUSIC_IP = "192.168.0.16:4040";
+const MUSIC_IP = "192.168.0.2:4040";
 const numberword = [
   "one",
   "two",
@@ -45,7 +45,7 @@ export default class ScoresAdmin extends Component {
       .catch(err => {
         throw err;
       });*/
-    setInterval(async () => {
+     /* setInterval(async () => {
       try {
         const { response } = await ajax("/api/get/last").get();
         console.log(JSON.parse(response));
@@ -57,7 +57,7 @@ export default class ScoresAdmin extends Component {
         console.error(err);
         throw err;
       }
-    }, 250);
+    }, 250); */
     // Socket.io
     socket.on("update-scores", scores => this.props.dispatch({ type: "INJECT", scores: scores.scores }));
   }
@@ -115,16 +115,21 @@ export default class ScoresAdmin extends Component {
           <h2>Last Buzz: {this.state.last.name}</h2>
           <div className="last-buttons">
             <button className="written-right" onClick={async () => {
-              this.props.dispatch(increment(this.state.last.id));
-              this.props.dispatch(increment(this.state.last.id));
-              this.props.dispatch(increment(this.state.last.id));
+              const { response } = await ajax("/api/get/last").get();
+              this.props.dispatch(increment(JSON.parse(response).id));
+              this.props.dispatch(increment(JSON.parse(response).id));
+              this.props.dispatch(increment(JSON.parse(response).id));
               await ajax(`http://${MUSIC_IP}/api/get/right`).get();
             }}><FontAwesome name="check" /></button>
             <button className="written-wrong" onClick={async () => {
-              this.props.dispatch(deincrement(this.state.last.id));
+              const { response } = await ajax("/api/get/last").get();
+              this.props.dispatch(deincrement(JSON.parse(response).id));
               await ajax(`http://${MUSIC_IP}/api/get/wrong`).get();
             }}><FontAwesome name="times" /></button>
-            <button className="written-reset"><FontAwesome name="undo" /></button>
+            <button className="written-reset" onClick={async () => {
+              const { response } = await ajax(`http://${MUSIC_IP}/api/get/reset`).get();
+              console.log(response);
+            }}><FontAwesome name="undo" /></button>
           </div>
         </div>
       </div>
