@@ -8,7 +8,7 @@ Functionality:
 - Contains Python code for a Raspberry Pi 2 that uses specific GPIO pins to listen for quiz buzzer activations. Then, sends a request to the main server to play a sound associated with the answering contestant, and blocks buzzes until it is reset by the hosts in the UI.
 
 # How it works
-On the react server, there is 3 routes:
+On the react server, there are 3 routes:
 - `/`: Index, contains edit and view routes (see below) and access points for these route
 - `/edit`: Allows you to edit scores
 - `/scores`: View the scores
